@@ -1,45 +1,45 @@
 namespace BSTree
 {
-	struct Node //Структура узла
+	struct Node //Г‘ГІГ°ГіГЄГІГіГ°Г  ГіГ§Г«Г 0
 	{
 		int data;
 		Node *pRight;
 		Node *pLeft;
 	};
 
-	class Tree //Класс дерева
+	class Tree //ГЉГ«Г Г±Г± Г¤ГҐГ°ГҐГўГ 
 	{
 	private:
 		Node * proot = nullptr;
 	public:
-		void addnode(int data, Node *pNTree) //Функция добавления узла в дерево
+		void addnode(int data, Node *pNTree) //Г”ГіГ­ГЄГ¶ГЁГї Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї ГіГ§Г«Г  Гў Г¤ГҐГ°ГҐГўГ®
 		{
-			if (pNTree == nullptr) //Если узлов дерева нет
+			if (pNTree == nullptr) //Г…Г±Г«ГЁ ГіГ§Г«Г®Гў Г¤ГҐГ°ГҐГўГ  Г­ГҐГІ
 			{
-				pNTree = new Node; //Создаём новый узел
-				pNTree->data = data; //Записываем туда значения
-				pNTree->pLeft = nullptr; //Делаем пустые указатели от этого узла налево и направо
+				pNTree = new Node; //Г‘Г®Г§Г¤Г ВёГ¬ Г­Г®ГўГ»Г© ГіГ§ГҐГ«
+				pNTree->data = data; //Г‡Г ГЇГЁГ±Г»ГўГ ГҐГ¬ ГІГіГ¤Г  Г§Г­Г Г·ГҐГ­ГЁГї
+				pNTree->pLeft = nullptr; //Г„ГҐГ«Г ГҐГ¬ ГЇГіГ±ГІГ»ГҐ ГіГЄГ Г§Г ГІГҐГ«ГЁ Г®ГІ ГЅГІГ®ГЈГ® ГіГ§Г«Г  Г­Г Г«ГҐГўГ® ГЁ Г­Г ГЇГ°Г ГўГ®
 				pNTree->pRight = nullptr;
 			} 
 			
-			if (data < pNTree->data) //Если добавленный элемент меньше текущего узла
+			if (data < pNTree->data) //Г…Г±Г«ГЁ Г¤Г®ГЎГ ГўГ«ГҐГ­Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Г¬ГҐГ­ГјГёГҐ ГІГҐГЄГіГ№ГҐГЈГ® ГіГ§Г«Г 
 			{
-				if (pNTree->pLeft != nullptr) // Если узел НЕ содержит пустого указателя налево
+				if (pNTree->pLeft != nullptr) // Г…Г±Г«ГЁ ГіГ§ГҐГ« ГЌГ… Г±Г®Г¤ГҐГ°Г¦ГЁГІ ГЇГіГ±ГІГ®ГЈГ® ГіГЄГ Г§Г ГІГҐГ«Гї Г­Г Г«ГҐГўГ®
 				{
-					addnode(data, pNTree->pLeft); //Добавляем данные и указатель на левый узел
+					addnode(data, pNTree->pLeft); //Г„Г®ГЎГ ГўГ«ГїГҐГ¬ Г¤Г Г­Г­Г»ГҐ ГЁ ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  Г«ГҐГўГ»Г© ГіГ§ГҐГ«
 				}
 				else
 				{
-					pNTree->pLeft = new Node; //Иначе делаем новый узел
-					pNTree->pLeft->pLeft = nullptr; //Левую ветвь левого элемента
-					pNTree->pLeft->pRight = nullptr; //Правую ветвь левого элемента
-					pNTree->pLeft->data = data; //Записываем данные в левый узел
+					pNTree->pLeft = new Node; //Г€Г­Г Г·ГҐ Г¤ГҐГ«Г ГҐГ¬ Г­Г®ГўГ»Г© ГіГ§ГҐГ«
+					pNTree->pLeft->pLeft = nullptr; //Г‹ГҐГўГіГѕ ГўГҐГІГўГј Г«ГҐГўГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
+					pNTree->pLeft->pRight = nullptr; //ГЏГ°Г ГўГіГѕ ГўГҐГІГўГј Г«ГҐГўГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
+					pNTree->pLeft->data = data; //Г‡Г ГЇГЁГ±Г»ГўГ ГҐГ¬ Г¤Г Г­Г­Г»ГҐ Гў Г«ГҐГўГ»Г© ГіГ§ГҐГ«
 				}
 			}
 
 			
-			if (data > pNTree->data) //Если больше текущего узла
-			{ //Всё то же самое, на левую ветвь
+			if (data > pNTree->data) //Г…Г±Г«ГЁ ГЎГ®Г«ГјГёГҐ ГІГҐГЄГіГ№ГҐГЈГ® ГіГ§Г«Г 
+			{ //Г‚Г±Вё ГІГ® Г¦ГҐ Г±Г Г¬Г®ГҐ, Г­Г  Г«ГҐГўГіГѕ ГўГҐГІГўГј
 				if (pNTree->pRight != nullptr) 
 				{
 					addnode(data, pNTree->pRight);
@@ -54,7 +54,7 @@ namespace BSTree
 			}
 		}
 
-		void addel(int data) //Функция добавления элемента в узел
+		void addel(int data) //Г”ГіГ­ГЄГ¶ГЁГї Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї ГЅГ«ГҐГ¬ГҐГ­ГІГ  Гў ГіГ§ГҐГ«
 		{
 			addnode(data, proot);
 		}
