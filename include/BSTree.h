@@ -12,7 +12,7 @@ namespace BSTree
 	private:
 		Node * proot = nullptr;
 	public:
-		void addnode(int data, Node *pNTree) //Функция добавления узла в дерево
+		void addnode(int data, Node *&pNTree) //Функция добавления узла в дерево
 		{
 			if (pNTree == nullptr) //Если узлов дерева нет
 			{
