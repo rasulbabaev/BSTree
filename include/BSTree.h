@@ -3,60 +3,85 @@ namespace BSTree
 	struct Node //Структура узла
 	{
 		int data;
-		Node *pRight;
-		Node *pLeft;
+		Node *Right;
+		Node *Left;
 	};
 
 	class Tree //Класс дерева
 	{
-	private:
-		Node * proot = nullptr;
-	public:
-		void addnode(int data, Node *&pNTree) //Функция добавления узла в дерево
+		Node * root = nullptr;
+		void print_tree(Node *root, int space)
 		{
-			if (pNTree == nullptr) //Если узлов дерева нет
+			if (root == nullptr)
 			{
-				pNTree = new Node; //Создаём новый узел
-				pNTree->data = data; //Записываем туда значения
-				pNTree->pLeft = nullptr; //Делаем пустые указатели от этого узла налево и направо
-				pNTree->pRight = nullptr;
-			} 
-			
-			if (data < pNTree->data) //Если добавленный элемент меньше текущего узла
+				return;
+			}
+
+			int count = 1;
+			space = space + count;
+			print_tree(root->Right, space);
+			std::cout << std::endl;
+
+			for (int i = count; i < space; i++)
 			{
-				if (pNTree->pLeft != nullptr) // Если узел НЕ содержит пустого указателя налево
+				std::cout << "	";
+			}
+			std::cout << "--" << root->data << std::endl;
+
+			print_tree(root->Left, space);
+		}
+		void add_node(int data, Node *&NTree) //Функция добавления узла в дерево
+		{
+			if (NTree == nullptr) //Если узлов дерева нет
+			{
+				NTree = new Node; //Создаём новый узел
+				NTree->data = data; //Записываем туда значения
+				NTree->Left = nullptr; //Делаем пустые указатели от этого узла налево и направо
+				NTree->Right = nullptr;
+			}
+
+			if (data < NTree->data) //Если добавленный эл-т меньше
+			{
+				if (NTree->Left != nullptr) // Если узел НЕ содержит пустого указателя налево
 				{
-					addnode(data, pNTree->pLeft); //Добавляем данные и указатель на левый узел
+					add_node(data, NTree->Left); //Добавляем данные и указатель на левый узел
 				}
 				else
 				{
-					pNTree->pLeft = new Node; //Иначе делаем новый узел
-					pNTree->pLeft->pLeft = nullptr; //Левую ветвь левого элемента
-					pNTree->pLeft->pRight = nullptr; //Правую ветвь левого элемента
-					pNTree->pLeft->data = data; //Записываем данные в левый узел
+					NTree->Left = new Node; //Иначе делаем новый узел
+					NTree->Left->Left = nullptr; //Левую ветвь левого элемента
+					NTree->Left->Right = nullptr; //Правую ветвь левого элемента
+					NTree->Left->data = data; //Записываем данные в левый узел
 				}
 			}
 
-			
-			if (data > pNTree->data) //Если больше текущего узла
+
+			if (data > NTree->data) //Если больше текущего узла
 			{ //Всё то же самое, на левую ветвь
-				if (pNTree->pRight != nullptr) 
+				if (NTree->Right != nullptr)
 				{
-					addnode(data, pNTree->pRight);
+					add_node(data, NTree->Right);
 				}
 				else
 				{
-					pNTree->pRight = new Node;
-					pNTree->pRight->pRight = nullptr;
-					pNTree->pRight->pLeft = nullptr;
-					pNTree->pRight->data = data;
+					NTree->Right = new Node;
+					NTree->Right->Right = nullptr;
+					NTree->Right->Left = nullptr;
+					NTree->Right->data = data;
 				}
 			}
 		}
+	public:
 
-		void addel(int data) //Функция добавления элемента в узел
+
+		void add_element(int data) //Функция добавления элемента в узел
 		{
-			addnode(data, proot);
+			add_node(data, root);
+		}
+
+		void print_tree()
+		{
+			print_tree(root, 0);
 		}
 	};
 }
