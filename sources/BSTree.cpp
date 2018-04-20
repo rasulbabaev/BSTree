@@ -7,7 +7,7 @@ using namespace BSTree;
 
 void MenuOut()
 {
-	cout << "Выберите одну из операций:" << endl;
+	cout << "\nВыберите одну из операций:" << endl;
 	cout << "1. Вывести дерево на экран" << endl;
 	cout << "2. Вывести список узлов дерева:" << endl;
 	cout << "   a. Прямой обход" << endl;
@@ -41,7 +41,6 @@ int main(int argc, char * argv[])
 		case 1:
 		{
 			tree->print_tree();
-			delete tree;
 			break;
 		}
 		case 2:
