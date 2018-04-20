@@ -15,7 +15,9 @@ namespace BSTree
 			if (NTree == nullptr) //Если узлов дерева нет
 			{
 				NTree = new Node; //Создаём новый узел
-				*NTree = { data, nullptr, nullptr };
+				NTree->data = data; //Записываем туда значения
+				NTree->Left = nullptr; //Делаем пустые указатели от этого узла налево и направо
+				NTree->Right = nullptr;
 			}
 
 			if (data < NTree->data) //Если добавленный эл-т меньше
@@ -27,7 +29,9 @@ namespace BSTree
 				else
 				{
 					NTree->Left = new Node; //Иначе делаем новый узел
-					*NTree = { data, nullptr, nullptr };
+					NTree->Left->Left = nullptr; //Левую ветвь левого элемента
+					NTree->Left->Right = nullptr; //Правую ветвь левого элемента
+					NTree->Left->data = data; //Записываем данные в левый узел
 				}
 			}
 
@@ -41,7 +45,9 @@ namespace BSTree
 				else
 				{
 					NTree->Right = new Node;
-					*NTree = { data, nullptr, nullptr };
+					NTree->Right->Right = nullptr;
+					NTree->Right->Left = nullptr;
+					NTree->Right->data = data;
 				}
 			}
 		}
