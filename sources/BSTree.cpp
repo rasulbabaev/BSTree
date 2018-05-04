@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "BSTree.h"
 
 using namespace std;
@@ -7,7 +8,7 @@ using namespace BSTree;
 
 void MenuOut()
 {
-	cout << "\nВыберите одну из операций:" << endl;
+	cout << "\n\nВыберите одну из операций:" << endl;
 	cout << "1. Вывести дерево на экран" << endl;
 	cout << "2. Вывести список узлов дерева:" << endl;
 	cout << "   a. Прямой обход" << endl;
@@ -21,16 +22,32 @@ void MenuOut()
 	cout << "8. Завершение работы" << endl << endl;
 
 }
+void Menu_for_case2()
+{
+	cout << "a - Прямой обход" << endl;
+	cout << "b - Поперечный обход" << endl;
+	cout << "c - Обратный обход" << endl;
+}
 
 int main(int argc, char * argv[])
 {
 	setlocale(LC_ALL, "Russian");
 	Tree *tree = new Tree;
-	for (int i = 0; i < argc; i++)
+	cout << "Введите кол-во элементов" << endl;
+	int *n = new int;
+	cin >> *n;
+	int *mas = new int[*n];
+	for (int i = 0; i < *n; i++)
 	{
-		tree->add_element(atoi(argv[i]));
+		cout << "Введите " << i + 1 << " элемент" << endl;
+		cin >> *(mas + i);
 	}
-
+	for (int i = 0; i < *n; i++)
+	{
+		tree->add_element(*(mas + i));
+	}
+	delete[] mas;
+	delete n;
 	while (true)
 	{
 		MenuOut();
@@ -40,64 +57,88 @@ int main(int argc, char * argv[])
 		{
 		case 1:
 		{
-			tree->print_tree();
+			tree->get_print_tree();
 			break;
 		}
 		case 2:
 		{
-			char choose;
-			cout << "a - Прямой обход" << endl;
-			cout << "b - Поперечный обход" << endl;
-			cout << "c - Обратный обход" << endl;
-			cin >> choose;
-
-			if (choose == 'a')
+			char *ch = new char;
+			Menu_for_case2();
+			cin >> *ch;
+			if (*ch == 'a')
 			{
 				tree->get_straight();
+				break;
 			}
 
-			if (choose == 'b')
+			if (*ch == 'b')
 			{
 				tree->get_symmetric();
+				break;
 			}
 
-			if (choose == 'c')
+			if (*ch == 'c')
 			{
 				tree->get_inverce();
+				delete ch;
+				break;
+			}
+			
+			else
+			{
+				cout << "Неправильный ввод" << endl;
 			}
 			break;
 		}
 		case 3:
 		{
+			cout << "\nВведите значение для нового узла" << endl;
+			int *ins = new int;
+			cin >> *ins;
+			tree->get_insert(*ins);
+			delete ins;
 			break;
 		}
 		case 4:
 		{
+			int *del = new int;
+			int *ins = new int;
+			cout << "Введите узел, который должен быть удалён" << endl;
+			cin >> *del;
+			cout << "Введите значение для нового узла" << endl;
+			cin >> *ins;
 			break;
 		}
 		case 5:
 		{
+			tree->get_write_to_file();
 			break;
 		}
 		case 6:
 		{
+			tree->get_read_from_file();
 			break;
 		}
 		case 7:
 		{
+			int data;
+			cout << "Введите узел для проверки" << endl;
+			cin >> data;
+			tree->get_check_node(data);
+			a = false;
 			break;
 		}
 		case 8:
 		{
-			string exit;
+			string *exit = new string;
 			cout << "Вы хотите выйти?" << endl;
-			cin >> exit;
-			if ((exit == "y") || (exit == "Y") || (exit == "yes") || (exit == "Yes"))
+			cin >> *exit;
+			if ((*exit == "y") || (*exit == "Y") || (*exit == "yes") || (*exit == "Yes") || (*exit == "YES"))
 			{
 				return 0;
 			}
 
-			if ((exit == "n") || (exit == "N") || (exit == "no") || (exit == "No"))
+			if ((*exit == "n") || (*exit == "N") || (*exit == "no") || (*exit == "No") || (*exit == "NO"))
 			{
 				cout << endl;
 				break;
@@ -107,6 +148,7 @@ int main(int argc, char * argv[])
 			{
 				cout << "Неверный ввод" << endl << endl;
 			}
+			delete exit;
 			break;
 		}
 		default:
@@ -114,7 +156,7 @@ int main(int argc, char * argv[])
 			cout << "Неверный ввод" << endl << endl;
 			return 0;
 		}
-
+		delete tree;
 		}
 	}
 	
